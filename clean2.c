@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 22:20:38 by abouleau          #+#    #+#             */
-/*   Updated: 2022/11/07 13:40:01 by abouleau         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:15:19 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ int	free_args2(t_pstat *pstat, char **args, int choice)
 		free(args);
 		return (0);
 	}
+	return (0);
 }

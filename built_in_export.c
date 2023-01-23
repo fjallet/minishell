@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_in_export.c                                  :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 09:45:38 by abouleau          #+#    #+#             */
-/*   Updated: 2022/11/07 17:54:20 by abouleau         ###   ########.fr       */
+/*   Updated: 2022/10/01 09:45:38 by abouleau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,48 +59,29 @@ char	**first_split(char *s, char c)
 	return (sep);
 }
 
-void	msg_error_export(char **str)
-{
-	ft_putstr_fd("export: '", 2);
-	ft_putstr_fd(str[0], 2);
-	if (str[1])
-	{
-		ft_putstr_fd("=", 2);
-		ft_putstr_fd(str[1], 2);
-	}
-	ft_putstr("'not a valid identifier\n");
-}
-
-void	free_sep(char **sep)
-{
-	free(sep[0]);
-	free(sep[1]);
-	free(sep);
-}
-
 int	built_in_export(char **cmd, t_mini *mini, int fd_out)
 {
 	int		i;
 	char	**sep;
 	int		ret;
 
-	i = 0;
+	i = 1;
 	ret = EXIT_SUCCESS;
-	while (cmd[++i])
+	while (cmd[i])
 	{
 		sep = first_split(cmd[i], '=');
 		if (!sep)
 			return (EXIT_SUCCESS);
 		if (ft_clean_export(sep[0], &ret))
-			msg_error_export(sep);
+			msg_error("export: not a valid identifier\n");
+		if (!sep[1])
+			ft_setenv(mini, sep[0], NULL, 0);
 		else
-		{
-			if (!sep[1])
-				ft_setenv2(mini, sep[0], NULL, 0);
-			else
-				ft_setenv(mini, sep[0], sep[1], 1);
-		}
-		free_sep(sep);
+			ft_setenv(mini, sep[0], sep[1], 1);
+		free(sep[0]);
+		free(sep[1]);
+		free(sep);
+		i++;
 	}
 	if (i == 1)
 		ft_printexport(mini, fd_out);

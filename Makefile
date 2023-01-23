@@ -59,7 +59,7 @@ B_MAGENTA 		= \033[1;35m
 B_CYAN 			= \033[1;36m
 
 ./.build/%.o : %.c
-	@$(CC) -g3 -I. -o $@ -c $?
+	@$(CC) ${CFLAGS} -g3 -I. -o $@ -c $?
 	@printf "${B_MAGENTA}Compilling $? ...\n${NONE}"
 
 all :

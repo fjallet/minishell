@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 01:20:58 by abouleau          #+#    #+#             */
-/*   Updated: 2022/09/28 01:20:58 by abouleau         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:18:03 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,20 @@ void	ft_reset_token2(t_token *token)
 	token->value = NULL;
 }
 
+int	full_dollar(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '$' && str[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 t_token	*get_cmd(char *str, t_mini *mini)
 {
 	t_token	*cmd;
@@ -71,16 +85,15 @@ t_token	*get_cmd(char *str, t_mini *mini)
 	i = 0;
 	j = 0;
 	cmd = (t_token *) malloc (sizeof(t_token) * 1);
+	if (!full_dollar(str))
+		input_error("Invalid command", str, 2);
 	while (str[i] && ft_whitespace(str[i]))
 		i++;
 	while (str[i])
 	{
 		tmp = get_arg(str, &i, mini, 0);
 		if (tmp.value)
-		{
-			cmd = add_token(cmd, tmp, j);
-			j++;
-		}
+			cmd = add_token(cmd, tmp, j++);
 		while (str[i] && ft_whitespace(str[i]))
 			i++;
 	}

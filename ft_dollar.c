@@ -6,21 +6,18 @@
 /*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 02:54:19 by abouleau          #+#    #+#             */
-/*   Updated: 2022/11/07 20:15:44 by abouleau         ###   ########.fr       */
+/*   Updated: 2022/09/28 02:54:19 by abouleau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_new_str(t_helper arg, char c, int i, char *str)
+char	*get_new_str(t_helper arg, char c, int i)
 {
 	if (ft_getenv(arg.mini, arg.tmp))
 		arg.copy = ft_strjoin(arg.tmp2, ft_getenv(arg.mini, arg.tmp));
 	else
-	{
-		arg.change = 0;
 		arg.copy = ft_strdup(arg.tmp2);
-	}
 	free(arg.tmp);
 	free(arg.tmp2);
 	arg.tmp = arg.copy;
@@ -35,7 +32,7 @@ char	*get_new_str(t_helper arg, char c, int i, char *str)
 	return (arg.str);
 }
 
-void	is_brace(t_helper *arg, int j, int i)
+void	is_brace(t_helper *arg, int i, int j)
 {
 	if (arg->str[i] == '}' && arg->str[j - 1] == '{')
 	{
@@ -79,8 +76,8 @@ char	*ft_dollar(char *str, char c, t_mini *mini)
 				i++;
 			arg.tmp = str + j;
 			arg.str = str;
-			is_brace(&arg, j, i);
-			str = get_new_str(arg, c, i, str);
+			is_brace(&arg, i, j);
+			str = get_new_str(arg, c, i);
 			break ;
 		}
 	}

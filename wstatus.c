@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   wstatus.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:47:07 by abouleau          #+#    #+#             */
-/*   Updated: 2022/09/29 23:47:07 by abouleau         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:10:25 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_pstat	*create_pipes_status(t_pstat **pipe_status, t_mini *mini, int pipe_size)
+int	create_pipes_status(t_pstat **pipe_status, t_mini *mini, int pipe_size)
 {
 	int			i;
 
@@ -20,7 +20,7 @@ t_pstat	*create_pipes_status(t_pstat **pipe_status, t_mini *mini, int pipe_size)
 	if (!*pipe_status)
 	{
 		mini->exit_status = 1;
-		return (NULL);
+		return (0);
 	}
 	i = -1;
 	while (++i < pipe_size)
@@ -28,6 +28,7 @@ t_pstat	*create_pipes_status(t_pstat **pipe_status, t_mini *mini, int pipe_size)
 		(*pipe_status)[i].pid = 0;
 		(*pipe_status)[i].status = 0;
 	}
+	return (1);
 }
 
 int	wait_all_pid(t_pstat *pipe_status, int size)

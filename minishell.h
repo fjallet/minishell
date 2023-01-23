@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:24:34 by abouleau          #+#    #+#             */
-/*   Updated: 2022/11/07 20:05:27 by abouleau         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:10:54 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ typedef struct s_mini
 typedef struct s_helper
 {
 	char	*line;
-	char	*save;
-	int		change;
 	char	*ret;
 	char	*temp;
 	int		start;
@@ -135,8 +133,7 @@ int		run_pipes(t_pipe *pipes, int cmd_nbr, t_mini *mini);
 int		get_fd(t_pipe pipe, int *input_fd, int *output_fd);
 int		get_fds(t_pipe pipe, int *input_fd, int *output_fd, t_pstat *pstat);
 int		exec_built_in(char **cmd, t_mini *mini, int fd_in, int fd_out);
-t_pstat	*create_pipes_status(t_pstat **pipe_status,
-			t_mini *mini, int pipe_size);
+int		create_pipes_status(t_pstat **pipe_status, t_mini *mini, int pipe_size);
 int		wait_all_pid(t_pstat *pipe_status, int size);
 int		print_stdout(int fd);
 int		default_pipe(int *input_fd, int *pipe_fd);
@@ -179,7 +176,6 @@ int		run_command(int fd_in, int	*pipe_fd, char **parsed_cmd, t_mini *mini);
 
 void	ft_setenv(t_mini *mini, char *name, char *value, int init);
 void	ft_setenv1(t_mini *mini, int *i, t_env *env, char *value);
-void	ft_setenv2(t_mini *mini, char *name, char *value, int init);
 void	ft_replaceenv(t_mini *mini, char *name, char *value);
 void	free_full_env(t_mini *mini);
 

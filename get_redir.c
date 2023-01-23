@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:25:46 by abouleau          #+#    #+#             */
-/*   Updated: 2022/11/07 13:56:57 by abouleau         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:16:00 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ t_token	get_redir1(int *i, char *str, t_mini *mini)
 	return (tmp);
 }
 
-t_token	get_redir2(int i, char *str, char c)
+t_token	get_redir2(int i, char c)
 {
 	t_token	tmp;
-	t_token	tmp2;
 
 	tmp.dollar = 0;
 	tmp.type = 0;
@@ -62,6 +61,7 @@ t_token	get_redir2(int i, char *str, char c)
 	tmp.value[0] = c;
 	tmp.value[1] = '\0';
 	tmp.type = ft_get_redirection(tmp.value);
+	(void)i;
 	return (tmp);
 }
 
@@ -70,7 +70,7 @@ t_token	get_redir(char *str, char c, int *i, t_mini *mini)
 	if (str[*i + 1] && (str[*i + 1] == '>' || str[*i + 1] == '<'))
 		return (get_redir1(i, str, mini));
 	else
-		return (get_redir2((*i)++, str, c));
+		return (get_redir2((*i)++, c));
 }
 
 int	redirections(t_pipe pipe, int *fd_in, int *fd_out)

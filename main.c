@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 01:01:57 by abouleau          #+#    #+#             */
-/*   Updated: 2022/11/07 17:54:56 by abouleau         ###   ########.fr       */
+/*   Updated: 2023/01/23 16:11:45 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_setenv2(t_mini *mini, char *name, char *value, int init)
-{
-	int		i;
-	t_env	*env;
-
-	if (ft_hasenv(mini, name))
-		return ;
-	env = ft_malloc(sizeof(t_env) * (mini->env_length + 1));
-	i = 0;
-	while (i < (mini->env_length - 1))
-	{
-		env[i].name = mini->env[i].name;
-		env[i].value = mini->env[i].value;
-		env[i].init = mini->env[i].init;
-		i++;
-	}
-	env[i].name = ft_strdup(name);
-	env[i].init = init;
-	ft_setenv1(mini, &i, env, value);
-}
 
 void	setup_signal(t_mini *mini)
 {
@@ -68,6 +47,8 @@ int	main(int ac, char **av, char **envp)
 		line = readline("\e[0;35mMini\e[0;33mshell $>\e[0;37m ");
 	while (line && mini.end == -1 && isatty(0))
 		minishell(&line, &mini, cmd);
+	if (line == NULL)
+		mini.print_exit = 1;
 	free_all(&mini);
 	if (mini.print_exit == 1)
 		printf("exit\n");
