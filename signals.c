@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 22:21:53 by fjallet           #+#    #+#             */
-/*   Updated: 2023/01/23 16:52:48 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/23 17:37:51 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ void	signal_c(int sig)
 
 void	signal_c2(int sig)
 {
+	if (sig == SIGQUIT)
+	{
+		printf("\b\b  \b\b");
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 	(void) sig;
 }
 
