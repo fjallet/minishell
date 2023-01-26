@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 22:21:53 by fjallet           #+#    #+#             */
-/*   Updated: 2023/01/23 17:37:51 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/26 14:13:33 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	signal_c2(int sig)
 	if (sig == SIGQUIT)
 	{
 		printf("\b\b  \b\b");
-		rl_replace_line("", 0);
-		rl_redisplay();
 	}
 	(void) sig;
 }
@@ -72,5 +70,4 @@ void	signal_c3(int sig)
 void	signal_c4(int sig)
 {
 	(void) sig;
-	write(1, "\n", 1);
 }

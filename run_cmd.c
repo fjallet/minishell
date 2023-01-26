@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:52:08 by abouleau          #+#    #+#             */
-/*   Updated: 2022/11/07 13:42:04 by abouleau         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:34:16 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	run_cmd2(t_pipe *pipe, t_mini *mini, int cmd_nbr)
 {
 	mini->end = 1;
 	signal(SIGINT, mini->signal_c4);
+	signal(SIGQUIT, mini->signal_c4);
 	if (run_pipes(pipe, cmd_nbr, mini) == -1)
 	{
 		mini->exit_status = 1;
@@ -96,14 +97,16 @@ int	run_cmd(t_pipe *pipe, t_mini *mini, int cmd_nbr, char **env)
 		mini->exit_status = 1;
 		return (-1);
 	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	if (pid == 0)
 		return (run_cmd2(pipe, mini, cmd_nbr));
 	else
 	{
-		signal(SIGINT, mini->signal_c2);
 		waitpid(pid, &status, 0);
 		mini->exit_status = WEXITSTATUS(status);
 		signal(SIGINT, mini->signal_c);
+		signal(SIGQUIT, mini->signal_c2);
 	}
 	return (0);
 }

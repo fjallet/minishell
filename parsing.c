@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 01:20:58 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/23 12:18:03 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/26 14:19:52 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	read_stdin(char *str, t_token *token)
 	pipe(p);
 	buffer = NULL;
 	line = get_next_line(0);
-	while (strncmp(str, line, (strlen(line) - 1)))
+	while (ft_strncmp(str, line, (ft_strlen(line) - 1)))
 	{
 		buffer = ft_strjoin1(buffer, line);
 		line = get_next_line(0);

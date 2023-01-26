@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:24:34 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/23 12:10:54 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:48:26 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,5 +216,6 @@ void	signal_delimiters(t_mini *mini, int i);
 void	ft_delimiters(char *s, t_token *token, t_mini *mini, int expand);
 void	ft_delimiters1(char *ret, char *s, int *pipes, t_token *token);
 void	ft_delimiters2(t_helper *save, char *s, int expand);
+void	check_exit_status(t_mini *mini, char *line);
 
 #endif

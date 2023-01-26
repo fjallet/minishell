@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:47:07 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/23 12:10:25 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/26 14:17:13 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,16 @@ int	wait_all_pid(t_pstat *pipe_status, int size)
 		++i;
 	}
 	return (1);
+}
+
+void	check_exit_status(t_mini *mini, char *line)
+{
+	if (line == NULL)
+		mini->print_exit = 1;
+	if (mini->print_exit == 1)
+		printf("exit\n");
+	else if (mini->exit_status == 131)
+		printf("Quit (core dumped)\n");
+	else if (mini->exit_status == 130)
+		printf("\n");
 }

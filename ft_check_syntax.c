@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 01:17:15 by abouleau          #+#    #+#             */
-/*   Updated: 2022/11/07 19:18:53 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/26 14:27:38 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_syntax1(char *str, int *count, int *i, int *error)
 	while (str[(*i)] && str[(*i)] != '\'')
 		(*i)++;
 	if (!str[(*i)])
-		*error = 1;
+		*error = 2;
 	else
 		count[2]++;
 }
@@ -29,7 +29,7 @@ void	ft_syntax2(char *str, int *count, int *i, int *error)
 	while (str[(*i)] && str[(*i)] != '\"')
 		(*i)++;
 	if (!str[(*i)] || str[(*i) - 1] == '\\')
-		*error = 1;
+		*error = 2;
 	else
 		count[3]++;
 }
@@ -40,7 +40,7 @@ void	ft_syntax3(char *str, int *count, int *i, int *error)
 	while (str[(*i)] && ft_whitespace(str[(*i)]))
 		(*i)++;
 	if (str[(*i)] && str[(*i)] == '|')
-		*error = 1;
+		*error = 2;
 }
 
 void	ft_syntax4(char *str, int *count, int *i, int *error)
