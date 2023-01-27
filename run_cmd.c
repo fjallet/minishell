@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:52:08 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/27 14:18:44 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:56:55 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	free_save(t_helper *save)
 {
-	// free(parsed_cmd[0]);
-	// free(parsed_cmd);
 	free_all(save->mini);
 	free(save->wstatus);
 	free_cmd(save->mini->cmd);
@@ -60,15 +58,14 @@ int	run_pipes(t_pipe *pipes, int cmd_nbr, t_mini *mini)
 	fd_in = 0;
 	if (!create_pipes_status(&pipe_status, mini, cmd_nbr))
 		return (-1);
-	i = 0;
+	i = -1;
 	save.wstatus = pipe_status;
-	while (i < cmd_nbr)
+	while (++i < cmd_nbr)
 	{
 		save.mini = mini;
 		save.pipe = &pipes[i];
 		if (ft_init(&fd_in, &pipe_status[i], &save, i + 1 == cmd_nbr) < 0)
 			return (free_pipe2(pipe_status));
-		++i;
 	}
 	wait_all_pid(pipe_status, cmd_nbr);
 	mini->exit_status = pipe_status[cmd_nbr - 1].status;
@@ -95,12 +92,11 @@ int	run_cmd2(t_pipe *pipe, t_mini *mini, int cmd_nbr)
 	return (1);
 }
 
-int	run_cmd(t_pipe *pipe, t_mini *mini, int cmd_nbr, char **env)
+int	run_cmd(t_pipe *pipe, t_mini *mini, int cmd_nbr)
 {
 	pid_t	pid;
 	int		status;
 
-	(void)env;
 	mini->exit_status = 0;
 	if (cmd_nbr == 1 && is_built_in(pipe[0].parse_cmd[0]))
 		return (run_solo_builtin(pipe[0], mini));

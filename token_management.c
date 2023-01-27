@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 00:16:39 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/27 16:57:25 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:58:06 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ t_token	*add_token(t_token *old_cmd, t_token tmp, int size)
 	return (new_cmd);
 }
 
-int	ft_check_token_syntax(t_token *token, int i)
+int	ft_check_token_syntax(t_token *token, int i, t_mini *mini)
 {
+	if (ft_strcmp(token->value, "./minishell") == 0)
+		mini->check_mini = 1;
 	if (i > 0 && token[i - 1].type == TOKEN_PIPE)
 		return (1);
 	i = 0;
@@ -98,11 +100,9 @@ void	ft_parse_token(t_token *token, t_mini *mini)
 			i++;
 	}
 	mini->cmd = token;
-	if (ft_strcmp(mini->cmd->value, "./minishell") == 0)
-		mini->check_mini = 1;
 	pipe = ft_create_pipe(token, count);
 	get_in_pipe(pipe, mini, count);
-	if (ft_check_token_syntax(token, i))
+	if (ft_check_token_syntax(token, i, mini))
 	{
 		msg_error("Minishell : syntax error\n");
 		mini->exit_status = 1;
@@ -110,5 +110,5 @@ void	ft_parse_token(t_token *token, t_mini *mini)
 	}
 	if (mini->signaldelimiters != 0 || count <= 0)
 		return ;
-	run_cmd(pipe, mini, count, mini->full_env);
+	run_cmd(pipe, mini, count);
 }

@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:24:34 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/27 17:10:03 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:57:33 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int		is_built_in(char *cmd);
 int		is_path(char *cmd);
 void	close_pipe(int *pipe);
 int		run_solo_builtin(t_pipe pipe, t_mini *mini);
-int		run_cmd(t_pipe *pipe, t_mini *mini, int cmd_nbr, char **env);
+int		run_cmd(t_pipe *pipe, t_mini *mini, int cmd_nbr);
 void	msg_error(char *str);
 void	get_i_incr(char *str, int *i);
 void	get_type_value(t_token *tmp, t_helper *save);
@@ -174,7 +174,8 @@ int		redirections(t_pipe pipe, int *fd_in, int *fd_out);
 int		set_pipe(t_pstat *pstat, int *fd_in, int *pipe_fd);
 int		run_process_command(int fd_in, char **pipe_cmd,
 			t_helper *save, int *new_pipe_fd);
-int		run_command(int fd_in, int	*pipe_fd, char **parsed_cmd, t_helper *save);
+int		run_command(int fd_in, int	*pipe_fd, char **parsed_cmd, \
+t_helper *save);
 
 void	ft_setenv(t_mini *mini, char *name, char *value, int init);
 void	ft_setenv1(t_mini *mini, int *i, t_env *env, char *value);

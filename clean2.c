@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 22:20:38 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/23 12:15:19 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/27 18:14:25 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	free_args2(t_pstat *pstat, char **args, int choice)
 		free(args[0]);
 		free(args);
 		input_error("?", "!", 0);
-		pstat->status = 1;
+		pstat->status = 12;
 		return (-4);
 	}
 	else if (choice == 2)

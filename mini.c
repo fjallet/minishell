@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 22:23:19 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/27 17:02:37 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:47:18 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	run_command(int fd_in, int	*pipe_fd, char **parsed_cmd, t_helper *save)
 {
 	int	res;
-	
+
 	if (dup2(fd_in, 0) == -1 || dup2(pipe_fd[1], 1) == -1)
 		return (-1);
 	close_pipe(pipe_fd);

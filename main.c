@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 01:01:57 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/27 16:55:17 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:47:07 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	main(int ac, char **av, char **envp)
 		line = readline("\e[0;35mMini\e[0;33mshell $>\e[0;37m ");
 	while (line && mini.end == -1 && isatty(0))
 		minishell(&line, &mini, cmd);
-	//printf("%i\n", mini.end);
 	check_exit_status(&mini, line);
 	free_all(&mini);
 	return (mini.exit_status);
