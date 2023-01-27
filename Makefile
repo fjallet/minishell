@@ -11,7 +11,6 @@ get_arg_token.c \
 pipes_management.c \
 redirections.c \
 run_cmd.c \
-run_pipes.c \
 token_management.c \
 utils.c \
 utils2.c \
@@ -48,8 +47,6 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = @printf "\n\t\t${B_CYAN}GENERATE libft library   ...\n\n --no-print-directory${NONE}" && cd Libft && make --no-print-directory
 
-GNL = @printf "Generate Get-Next_Libe\n" && cd ./get_next_line && make --no-print-directory
-
 # COLORS
 NONE			= \033[0m
 CL_LINE			= \033[2K
@@ -68,8 +65,7 @@ all :
 
 ${NAME} : $(OBJ)
 	${LIBFT}
-	${GNL}
-	@${CC} -o ${NAME} ${OBJ} -lreadline ./Libft/libft.a ./get_next_line/get_next_line.a
+	@${CC} -o ${NAME} ${OBJ} -lreadline ./Libft/libft.a
 	@printf "${B_GREEN}==>{${NAME}} LINKED SUCCESFULLY<==${NONE}\n"
 
 
@@ -79,7 +75,6 @@ clean :
 
 fclean :	clean
 	@${RM} ${NAME}
-	@cd get_next_line && make fclean --no-print-directory
 	@cd Libft && make fclean --no-print-directory
 	@printf "${B_RED}XX{${NAME}} FCLEAN SUCCESFULL XX${NONE}\n"
 

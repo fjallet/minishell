@@ -6,11 +6,22 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:52:08 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/26 14:34:16 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/27 14:18:44 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	free_save(t_helper *save)
+{
+	// free(parsed_cmd[0]);
+	// free(parsed_cmd);
+	free_all(save->mini);
+	free(save->wstatus);
+	free_cmd(save->mini->cmd);
+	free_pipe(save->mini);
+	return (0);
+}
 
 int	ft_init(int *fd_in, t_pstat *pstat, t_helper *save, int last_pipe)
 {
@@ -32,7 +43,7 @@ int	ft_init(int *fd_in, t_pstat *pstat, t_helper *save, int last_pipe)
 		return (0);
 	else if (redir == VALID_CMD)
 	{
-		pstat->pid = run_process_command(*fd_in, args, save->mini, pipe_fd);
+		pstat->pid = run_process_command(*fd_in, args, save, pipe_fd);
 		if (pstat->pid == INVALID_FD)
 			return (free_args2(pstat, args, 1));
 	}
@@ -50,6 +61,7 @@ int	run_pipes(t_pipe *pipes, int cmd_nbr, t_mini *mini)
 	if (!create_pipes_status(&pipe_status, mini, cmd_nbr))
 		return (-1);
 	i = 0;
+	save.wstatus = pipe_status;
 	while (i < cmd_nbr)
 	{
 		save.mini = mini;

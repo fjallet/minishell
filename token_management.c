@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_management.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 00:16:39 by abouleau          #+#    #+#             */
-/*   Updated: 2022/09/30 00:16:39 by abouleau         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:57:25 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,9 @@ void	ft_parse_token(t_token *token, t_mini *mini)
 		if (token[i].value && token[i].type == TOKEN_PIPE)
 			i++;
 	}
+	mini->cmd = token;
+	if (ft_strcmp(mini->cmd->value, "./minishell") == 0)
+		mini->check_mini = 1;
 	pipe = ft_create_pipe(token, count);
 	get_in_pipe(pipe, mini, count);
 	if (ft_check_token_syntax(token, i))

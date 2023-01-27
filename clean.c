@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouleau <abouleau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 22:20:41 by abouleau          #+#    #+#             */
-/*   Updated: 2022/11/07 12:27:42 by abouleau         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:50:57 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_cmd(t_token *cmd)
 	int	i;
 
 	i = -1;
-	while (cmd[++i].value)
+	while (cmd && cmd[++i].value)
 		free(cmd[i].value);
 	free(cmd[i].value);
 	free(cmd);

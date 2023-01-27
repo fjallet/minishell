@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:24:34 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/26 13:48:26 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:10:03 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <dirent.h>
 # include <sys/wait.h>
 # include "Libft/libft.h"
-# include "get_next_line/get_next_line.h"
 
 # define TOKEN_NULL 0
 # define TOKEN_COMMAND 1
@@ -97,6 +96,8 @@ typedef struct s_mini
 	int		end;
 	int		pipe_length;
 	t_pipe	*pipe;
+	t_token	*cmd;
+	int		check_mini;
 }				t_mini;
 
 typedef struct s_helper
@@ -111,6 +112,7 @@ typedef struct s_helper
 	char	*copy;
 	t_mini	*mini;
 	t_pipe	*pipe;
+	t_pstat	*wstatus;
 }	t_helper;
 
 typedef struct s_ep
@@ -171,8 +173,8 @@ int		free_args2(t_pstat *pstat, char **args, int choice);
 int		redirections(t_pipe pipe, int *fd_in, int *fd_out);
 int		set_pipe(t_pstat *pstat, int *fd_in, int *pipe_fd);
 int		run_process_command(int fd_in, char **pipe_cmd,
-			t_mini *mini, int *new_pipe_fd);
-int		run_command(int fd_in, int	*pipe_fd, char **parsed_cmd, t_mini *mini);
+			t_helper *save, int *new_pipe_fd);
+int		run_command(int fd_in, int	*pipe_fd, char **parsed_cmd, t_helper *save);
 
 void	ft_setenv(t_mini *mini, char *name, char *value, int init);
 void	ft_setenv1(t_mini *mini, int *i, t_env *env, char *value);
@@ -217,5 +219,7 @@ void	ft_delimiters(char *s, t_token *token, t_mini *mini, int expand);
 void	ft_delimiters1(char *ret, char *s, int *pipes, t_token *token);
 void	ft_delimiters2(t_helper *save, char *s, int expand);
 void	check_exit_status(t_mini *mini, char *line);
+int		free_save(t_helper *save);
+char	*ft_strjoin1(char *s1, char *s2);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 01:20:58 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/26 14:19:52 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:07:45 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	read_stdin(char *str, t_token *token)
+/*void	read_stdin(char *str, t_token *token)
 {
 	char	*line;
 	char	*buffer;
@@ -29,7 +29,7 @@ void	read_stdin(char *str, t_token *token)
 	ft_putstr_fd(buffer, p[1]);
 	close(p[1]);
 	token->fd = p[0];
-}
+}*/
 
 t_token	*check_dollar(t_token *cmd, t_mini *mini, int size)
 {

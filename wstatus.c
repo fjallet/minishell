@@ -6,11 +6,52 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:47:07 by abouleau          #+#    #+#             */
-/*   Updated: 2023/01/26 14:17:13 by fjallet          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:09:44 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+size_t	ft_strlen1(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*ft_strjoin1(char *s1, char *s2)
+{
+	size_t	i;
+	size_t	j;
+	char	*str;
+
+	if (!s1)
+	{
+		s1 = (char *)malloc(1 * sizeof(char));
+		s1[0] = '\0';
+	}
+	if (!s1 || !s2)
+		return (NULL);
+	str = (char *) malloc ((ft_strlen1(s1)
+				+ ft_strlen1(s2) + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	i = -1;
+	j = 0;
+	if (s1)
+		while (s1[++i] != '\0')
+			str[i] = s1[i];
+	while (s2[j] != '\0')
+		str[i++] = s2[j++];
+	str[ft_strlen1(s1) + ft_strlen1(s2)] = '\0';
+	free(s1);
+	return (str);
+}
 
 int	create_pipes_status(t_pstat **pipe_status, t_mini *mini, int pipe_size)
 {
@@ -60,10 +101,10 @@ int	wait_all_pid(t_pstat *pipe_status, int size)
 
 void	check_exit_status(t_mini *mini, char *line)
 {
-	if (line == NULL)
-		mini->print_exit = 1;
-	if (mini->print_exit == 1)
+	if (line == NULL || mini->print_exit == 1)
 		printf("exit\n");
+	else if (mini->check_mini == 1)
+		mini->check_mini = 0;
 	else if (mini->exit_status == 131)
 		printf("Quit (core dumped)\n");
 	else if (mini->exit_status == 130)
